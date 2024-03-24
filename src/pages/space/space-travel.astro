@@ -1,0 +1,12 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Main from "../../components/Main.astro"
+
+import PlanetTravel from "../../components/space/PlanetTravel.svelte"
+---
+
+<Layout>
+    <Main>
+        <PlanetTravel client:load />
+    </Main>
+</Layout>

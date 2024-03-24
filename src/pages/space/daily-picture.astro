@@ -1,0 +1,12 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Main from "../../components/Main.astro"
+
+import PictureDaily from "../../components/space/DailyPicture.svelte"
+---
+
+<Layout>
+    <Main>
+        <PictureDaily client:load />
+    </Main>
+</Layout>

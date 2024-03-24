@@ -1,0 +1,19 @@
+---
+import {Image} from "astro:assets"
+
+type Props = {
+  imageUrl: string;
+};
+const { imageUrl } = Astro.props;
+---
+
+<div class="rounded-full bg-gray-200 p-4">
+    <Image
+        src={imageUrl}
+        alt="portrait"
+        height={300}
+        width={300}
+        format="webp"
+        class="rounded-full shadow-xl object-cover"
+    />
+</div>

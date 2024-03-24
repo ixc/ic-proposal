@@ -1,0 +1,134 @@
+{
+    "Jan-2024": {
+        "Mercury": 77.3,
+        "Venus": 261,
+        "Earth": 0,
+        "Mars": 99.4,
+        "Jupiter": 644.3,
+        "Saturn": 1279.4,
+        "Uranus": 2723.1,
+        "Neptune": 4351.4,
+        "Pluto": 5913.5
+    },
+    "Feb-2024": {
+        "Mercury": 83.3,
+        "Venus": 275,
+        "Earth": 0,
+        "Mars": 126.7,
+        "Jupiter": 678.7,
+        "Saturn": 1333.6,
+        "Uranus": 2782.5,
+        "Neptune": 4412.1,
+        "Pluto": 5984.7
+    },
+    "Mar-2024": {
+        "Mercury": 86.6,
+        "Venus": 285,
+        "Earth": 0,
+        "Mars": 155.4,
+        "Jupiter": 711.1,
+        "Saturn": 1379.4,
+        "Uranus": 2834.2,
+        "Neptune": 4467.3,
+        "Pluto": 6036.2
+    },
+    "Apr-2024": {
+        "Mercury": 87.9,
+        "Venus": 298,
+        "Earth": 0,
+        "Mars": 186.6,
+        "Jupiter": 740.4,
+        "Saturn": 1418.5,
+        "Uranus": 2876.1,
+        "Neptune": 4519.7,
+        "Pluto": 6076.4
+    },
+    "May-2024": {
+        "Mercury": 85.6,
+        "Venus": 311,
+        "Earth": 0,
+        "Mars": 219,
+        "Jupiter": 766.3,
+        "Saturn": 1450.3,
+        "Uranus": 2912.8,
+        "Neptune": 4561.4,
+        "Pluto": 6110.6
+    },
+    "Jun-2024": {
+        "Mercury": 80.8,
+        "Venus": 324,
+        "Earth": 0,
+        "Mars": 251,
+        "Jupiter": 788.2,
+        "Saturn": 1472.6,
+        "Uranus": 2943.5,
+        "Neptune": 4594.5,
+        "Pluto": 6140.8
+    },
+    "Jul-2024": {
+        "Mercury": 74.8,
+        "Venus": 336,
+        "Earth": 0,
+        "Mars": 281.8,
+        "Jupiter": 805.5,
+        "Saturn": 1491.2,
+        "Uranus": 2970.5,
+        "Neptune": 4620.6,
+        "Pluto": 6167.4
+    },
+    "Aug-2024": {
+        "Mercury": 68.1,
+        "Venus": 348,
+        "Earth": 0,
+        "Mars": 310.4,
+        "Jupiter": 818.2,
+        "Saturn": 1508.7,
+        "Uranus": 2992.5,
+        "Neptune": 4642.2,
+        "Pluto": 6190.2
+    },
+    "Sep-2024": {
+        "Mercury": 61.1,
+        "Venus": 359,
+        "Earth": 0,
+        "Mars": 335.9,
+        "Jupiter": 826.2,
+        "Saturn": 1525,
+        "Uranus": 3010.5,
+        "Neptune": 4660.3,
+        "Pluto": 6210.4
+    },
+    "Oct-2024": {
+        "Mercury": 54.2,
+        "Venus": 369,
+        "Earth": 0,
+        "Mars": 358.2,
+        "Jupiter": 829.2,
+        "Saturn": 1539.1,
+        "Uranus": 3024.6,
+        "Neptune": 4676.3,
+        "Pluto": 6229.5
+    },
+    "Nov-2024": {
+        "Mercury": 47.6,
+        "Venus": 378,
+        "Earth": 0,
+        "Mars": 377.1,
+        "Jupiter": 827.3,
+        "Saturn": 1553.2,
+        "Uranus": 3036,
+        "Neptune": 4690.5,
+        "Pluto": 6246.7
+    },
+    "Dec-2024": {
+        "Mercury": 41.5,
+        "Venus": 387,
+        "Earth": 0,
+        "Mars": 392.5,
+        "Jupiter": 820.9,
+        "Saturn": 1566.3,
+        "Uranus": 3045.2,
+        "Neptune": 4703.6,
+        "Pluto": 6262.1
+    }
+}

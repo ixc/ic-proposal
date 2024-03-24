@@ -1,0 +1,64 @@
+---
+import {getCollection, getEntryBySlug} from "astro:content"
+import {Image} from "astro:assets"
+
+import Layout from "../../layouts/Layout.astro"
+import H1 from "../../components/H1.astro"
+import Main from "../../components/Main.astro"
+import TableOfContents from "../../components/TableOfContents.astro"
+
+// define the slug for each member
+export async function getStaticPaths() {
+    const allMembers = await getCollection("member")
+    return allMembers.map(member => ({
+        params: {slug: member.slug}
+    }))
+}
+
+const { slug } = Astro.params;
+
+// get member by slug
+const member = await getEntryBySlug("member", slug as string)
+
+// direct to 404 if member doesn't exist
+if (!member) {
+    return Astro.redirect("/404")
+}
+
+// extract the content & headings from the markdown file
+const {Content, headings} = await member.render()
+---
+
+<Layout>
+    <Main>
+        <div class="mb-10">
+            <a 
+                href="/" 
+                class="text-xl text-blue-600 hover:text-blue-400 active:text-blue-500"
+            >
+                Return Home
+            </a>
+        </div>
+
+        <H1 text={member.data.name} />
+
+        <Image
+            src={member.data.image}
+            alt={member.data.name}
+            height={400}
+            format="webp"
+            class="rounded-2xl shadow-xl mb-10 mt-10 aspect-thumbnail object-cover"
+        />
+
+        <div class="mb-10">
+            <TableOfContents headings={headings} />
+        </div>
+
+        <div class="relative">
+            <div class="prose prose-2xl overflow-visible relative">
+                <Content />
+            </div>
+        </div>
+
+    </Main>
+</Layout>

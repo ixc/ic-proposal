@@ -1,0 +1,17 @@
+{
+    "Airbus-A380": {
+      "top_speed": 945
+    },
+    "Bugatti-Chiron": {
+      "top_speed": 420
+    },
+    "F35-Fighter-Jet": {
+      "top_speed": 1930
+    },
+    "Toyota-Corolla": {
+      "top_speed": 200
+    },
+    "Walking": {
+      "top_speed": 5
+    }
+  }
