@@ -1,0 +1,26 @@
+---
+import {getCollection, getEntryBySlug} from "astro:content"
+
+// define the slug for each member
+export async function getStaticPaths() {
+    const sections = await getCollection("sections")
+    return sections.map(section => ({
+        params: {slug: section.slug}
+    }))
+}
+
+const { slug } = Astro.params;
+
+// get member by slug
+const section = await getEntryBySlug("sections", slug as string)
+
+// direct to 404 if member doesn't exist
+if (!section) {
+    return Astro.redirect("/404")
+}
+
+// extract the content & headings from the markdown file
+const {Content, headings} = await section.render()
+---
+
+<Content />

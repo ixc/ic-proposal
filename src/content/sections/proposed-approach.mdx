@@ -1,0 +1,17 @@
+---
+section: Proposed Approach
+order: 1
+headers: [
+    "header a",
+    "header b",
+    "header c",
+]
+---
+
+## Bio
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+{frontmatter.headers.map((header, index) => (
+  <h2 key={index}>{header}</h2>
+))}

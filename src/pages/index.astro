@@ -1,7 +1,11 @@
 ---
 import {getCollection} from "astro:content"
+import Section from "../components/Section.astro"
 
-const allMembers = await getCollection("member")
+const sections = await getCollection("sections")
 ---
 
-<div>hello, world!</div>
+
+<div class="grid grid-cols-3 gap-x-6 gap-y-14 mb-16 mt-12 max-lg:grid-cols-1">
+    {sections.map(section => <Section section={section} />)}
+</div>
