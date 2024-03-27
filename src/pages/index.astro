@@ -1,11 +1,11 @@
 ---
 import {getCollection} from "astro:content"
 import Section from "../components/Section.astro"
+import Layout from "../layouts/Layout.astro"
 
 const sections = await getCollection("sections")
 ---
 
-
-<div class="grid grid-cols-3 gap-x-6 gap-y-14 mb-16 mt-12 max-lg:grid-cols-1">
+<Layout>
     {sections.map(section => <Section section={section} />)}
-</div>
+</Layout>

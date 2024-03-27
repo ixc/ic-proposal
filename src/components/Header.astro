@@ -1,0 +1,29 @@
+---
+import {Image} from "astro:assets"
+
+export interface Props {
+    title: string,
+    logo: string,
+}
+
+const {
+    title,
+    logo,
+} = Astro.props
+---
+
+<div class="flex items-start border-b border-gray-300">
+    <div class="h-24 mr-4 pr-4 pt-4 pl-12 w-1/4 border-r border-gray-300">
+        <Image
+            src={logo}
+            alt="company logo"
+            width={64}
+            height={64}
+            class="w-24"
+        />
+    </div>
+    <div class="h-24 pt-6 pl-10 flex-grow">
+        <h2 class="text-5xl">{title}</h2>
+    </div>
+</div>
+
