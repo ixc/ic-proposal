@@ -1,0 +1,12 @@
+---
+import createSlug from '../lib/createSlug'
+
+type Props = {
+    subtitle: string
+}
+
+const {subtitle} = Astro.props
+const id = createSlug(subtitle)
+---
+
+<h2 id={id}>{subtitle}</h2>

@@ -1,5 +1,6 @@
 ---
 import type {CollectionEntry} from "astro:content"
+import createSlug from "../lib/createSlug"
 
 type Props = {
     section: CollectionEntry<"sections">
@@ -12,7 +13,7 @@ const {section} = Astro.props
     <a href={`/sections/${section.slug}`}>{section.data.section}</a>
     <ul>
         {section.data.headers.map(header => {
-            return <li>{header}</li>
+            return <li><a href={`/sections/${section.slug}/#${createSlug(header)}`}>{header}</a></li>
         })}
     </ul>
 </li>
