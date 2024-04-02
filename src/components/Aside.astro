@@ -1,0 +1,10 @@
+---
+import {getCollection} from "astro:content"
+import AsideSection from "./AsideSection.astro"
+
+const sections = await getCollection("sections")
+---
+
+<ul>
+    {sections.map(section => <AsideSection section={section}/>)}
+</ul>

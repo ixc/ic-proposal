@@ -1,0 +1,18 @@
+---
+import type {CollectionEntry} from "astro:content"
+
+type Props = {
+    section: CollectionEntry<"sections">
+}
+
+const {section} = Astro.props
+---
+
+<li class="flex flex-col items-center justify-center">
+    <a href={`/sections/${section.slug}`}>{section.data.section}</a>
+    <ul>
+        {section.data.headers.map(header => {
+            return <li>{header}</li>
+        })}
+    </ul>
+</li>
