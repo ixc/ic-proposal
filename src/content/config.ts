@@ -4,7 +4,7 @@ const sectionCollection = defineCollection({
     type: 'content',
     schema: z.object({
       section: z.string(),
-      order: z.number(),
+      page: z.number(),
       headers: z.array(z.string())
     })
 });
