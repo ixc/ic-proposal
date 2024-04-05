@@ -1,0 +1,121 @@
+---
+import Aside from "../components/Aside.astro";
+
+---
+
+<script>
+
+    // let activeEntries = [];
+    // let activeObj = {};
+
+    // // Define a function to handle intersection changes
+    // function handleIntersection(entries: IntersectionObserverEntry[]) {
+    //     entries.forEach(entry => {
+    //         if (entry.isIntersecting) {
+    //             !activeEntries.includes(entry.target.id) && activeEntries.push(entry.target.id)
+    //             activeObj[entry.target.id] = entry
+    //             // const asideID = entry.target.id;
+    //             // const liItem = document.getElementById(`aside-${asideID}`);
+    //             // if (!alreadyAssigned && liItem){
+    //             //     const asideArrow = document.getElementById(`aside-arrow-${entry.target.id}`)
+    //             //     if (asideArrow){
+    //             //         asideArrow.innerHTML = ">";
+    //             //         alreadyAssigned = true
+    //             //     }
+    //             // }
+    //             console.log('######111###')
+    //             console.log(entry.target.id)
+    //         } else {
+    //             // && activeEntries.includes(entry.target.id)
+    //             if ( activeEntries.length > 1 && activeEntries.includes(entry.target.id)){
+    //                 console.log('######222###')
+    //                 console.log(entry.target.id)
+    //                 activeEntries = activeEntries.filter(item => item !== entry.target.id);
+    //             }
+    //             // // const arrowSpan = entry.target.innerHTML = "";
+    //             // const asideArrow = document.getElementById(`aside-arrow-${entry.target.id}`)
+    //             // if (asideArrow){
+    //             //     asideArrow.innerHTML = "";
+    //             // }
+    //         }
+    //         console.log(activeEntries)
+    //     });
+
+    //     // remove any items which are not intersecting
+    //     activeEntries.forEach(entryID => {
+    //         var entry = activeObj[entryID]
+    //         console.log(entryID, entry.isIntersecting)
+    //     });
+    //     // activeObj[entry.target.id] = entry
+
+    //     // let targetEntry = activeEntries[0]
+    //     // console.log(targetEntry)
+
+    //     // const asideID = entry.target.id;
+    //     // const liItem = document.getElementById(`aside-${asideID}`);
+    //     // if (!alreadyAssigned && liItem){
+    //     //     const asideArrow = document.getElementById(`aside-arrow-${entry.target.id}`)
+    //     //     if (asideArrow){
+    //     //         asideArrow.innerHTML = ">";
+    //     //         alreadyAssigned = true
+    //     //     }
+    //     // }
+    // }
+
+    let activeEntries = [];
+
+    function handleIntersection(entries: IntersectionObserverEntry[]) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!activeEntries.includes(entry.target.id)) {
+                    activeEntries.push(entry.target.id);
+                }
+            } else {
+                activeEntries = activeEntries.filter(item => item !== entry.target.id);
+            }
+        })
+        console.log(activeEntries)
+    }
+
+    // Now IntersectionObserver is available, proceed with your code
+    const observer = new IntersectionObserver(handleIntersection);
+
+    // Get elements to track (replace with your selector)
+    const elementsToTrack = document.querySelectorAll('.track-element');
+
+    // Observe each element
+    elementsToTrack.forEach(element => {
+        observer.observe(element);
+    });
+
+
+
+    // function isInViewport(element) {
+    //     const rect = element.getBoundingClientRect();
+
+    //     return (
+    //         rect.top >= 0 &&
+    //         rect.left >= 0 &&
+    //         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    //         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    //     );
+    // }
+
+    // const element = document.getElementById('your-element-id');
+    // if (isInViewport(element)) {
+    //     console.log('Element is in the viewport');
+    // } else {
+    //     console.log('Element is not in the viewport');
+    // }
+
+</script>
+
+
+<div class="flex">
+    <div class="w-1/4 pl-12 pt-8 border-r border-gray-300 h-screen sticky top-0">
+        <Aside />
+    </div>
+    <div class="prose prose-2xl pl-12 pt-8 flex-1">
+        <slot />
+    </div>
+</div>

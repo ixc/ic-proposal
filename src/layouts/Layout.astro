@@ -3,7 +3,7 @@ import "@fontsource/cabin"
 
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
-import Aside from "../components/Aside.astro"
+import Middle from "../components/Middle.astro"
 
 export interface Props {
     title?: string
@@ -11,11 +11,64 @@ export interface Props {
     image?: string
 }
 
+
+// function handleIntersection(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
+//     entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//             console.log(`Element with ID ${entry.target.id} is in view`);
+//             // Add your tracking or analytics code here
+//         }
+//     });
+// }
+
+// // Use Intersection Observer
+// const observer = new IntersectionObserver(handleIntersection);
+
+// // Get elements to track (replace with your selector)
+// const elementsToTrack = document.querySelectorAll('.track-element');
+
+// // Observe each element
+// elementsToTrack.forEach(element => {
+//     observer.observe(element);
+// });
+
+
 const {
     title = "Melbourne Recital Centre proposal",
     description = "A proposal by the Interaction Consortium",
     image = "/logos/ic_sm.png",
 } = Astro.props
+
+
+// // Define a function to handle intersection changes
+// function handleIntersection(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
+//     entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//             console.log(`Element with ID ${entry.target.id} is in view`);
+//             // Add your tracking or analytics code here
+//         }
+//     });
+// }
+
+// // Check if IntersectionObserver is available before using it
+// if (typeof IntersectionObserver !== 'undefined') {
+//     // Use Intersection Observer
+//     const observer = new IntersectionObserver(handleIntersection);
+
+//     // Get elements to track (replace with your selector)
+//     const elementsToTrack = document.querySelectorAll('.track-element');
+
+//     // Observe each element
+//     elementsToTrack.forEach(element => {
+//         observer.observe(element);
+//     });
+
+//     // Cleanup: Disconnect the observer when not needed
+//     // For example, in an Astro unmount hook or when the component is no longer needed
+//     // observer.disconnect();
+// } else {
+//     console.warn('IntersectionObserver is not supported in this environment.');
+// }
 ---
 
 <!DOCTYPE html>
@@ -44,14 +97,7 @@ const {
 
     <body class="min-h-screen flex flex-col">
         <Header title={title} logo={image}/>
-        <div class="flex">
-            <div class="w-1/4 pl-12 pt-8 border-r border-gray-300 h-screen">
-                <Aside />
-            </div>
-            <div class="prose prose-2xl pl-12 pt-8 flex-1">
-                <slot />
-            </div>
-        </div>
+        <slot />
         <Footer />
     </body>
 </html>

@@ -13,7 +13,15 @@ const {section} = Astro.props
     <a href={`/sections/${section.slug}`}>{section.data.section}</a>
     <ul>
         {section.data.headers.map(header => {
-            return <li><a href={`/sections/${section.slug}/#${createSlug(header)}`}>{header}</a></li>
+            const slugHeader = createSlug(header);
+            return (
+                <li id={`aside-${slugHeader}`}>
+                    <a href={`/sections/${section.slug}/#${slugHeader}`}>
+                        <span id={`aside-arrow-${slugHeader}`} class="arrow"></span>
+                        <span class="header">{header}</span>
+                    </a>
+                </li>
+            )
         })}
     </ul>
 </li>

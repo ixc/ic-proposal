@@ -1,0 +1,14 @@
+---
+import Aside from "./Aside.astro";
+
+
+---
+
+<div class="flex">
+    <div class="w-1/4 pl-12 pt-8 border-r border-gray-300 h-screen">
+        <Aside />
+    </div>
+    <div class="prose prose-2xl pl-12 pt-8 flex-1">
+        <slot />
+    </div>
+</div>
