@@ -1,24 +1,23 @@
 ---
 import type {CollectionEntry} from "astro:content"
-import createSlug from "../lib/createSlug"
 
 type Props = {
     section: CollectionEntry<"sections">
 }
 
 const {section} = Astro.props
+const {Content, headings} = await section.render()
 ---
 
 <li class="flex flex-col items-center justify-center">
     <a href={`/sections/${section.slug}`}>{section.data.section}</a>
     <ul>
-        {section.data.headers.map(header => {
-            const slugHeader = createSlug(header);
+        {headings.map(header => {
             return (
-                <li id={`aside-${slugHeader}`}>
-                    <a href={`/sections/${section.slug}/#${slugHeader}`}>
-                        <span id={`aside-arrow-${slugHeader}`} class="arrow"></span>
-                        <span class="header">{header}</span>
+                <li id={`aside-${header.slug}`}>
+                    <a href={`/sections/${section.slug}/#${header.slug}`}>
+                        <span id={`aside-arrow-${header.slug}`} class="arrow"></span>
+                        <span class="header">{header.text}</span>
                     </a>
                 </li>
             )

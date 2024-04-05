@@ -6,6 +6,7 @@ type Props = {
 }
 
 const {section} = Astro.props
+const {Content, headings} = await section.render()
 ---
 
 <div class="flex flex-col border-b py-6 mx-10">
@@ -14,8 +15,8 @@ const {section} = Astro.props
             <div class="mr-4 w-20">{section.data.page}</div>
             <h3 class="text-3xl mr-4 flex-1">{section.data.section}</h3>
             <ul class="w-2/5">
-                {section.data.headers.map(header => (
-                    <li class="">{header}</li>
+                {headings.map(header => (
+                    <li class="">{header.text}</li>
                 ))}
             </ul>
         </div>
