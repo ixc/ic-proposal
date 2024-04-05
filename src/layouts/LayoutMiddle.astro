@@ -1,121 +1,122 @@
 ---
+// import { getEntry } from "astro:content"
 import Aside from "../components/Aside.astro";
+import Layout from "./Layout.astro";
 
+// const { slug } = Astro.params;
+
+// const section = await getEntry('sections', String(slug));
+
+// if (section){
+//     const {Content, headings} = await section.render()
+// }
 ---
 
 <script>
 
-    // let activeEntries = [];
-    // let activeObj = {};
-
-    // // Define a function to handle intersection changes
-    // function handleIntersection(entries: IntersectionObserverEntry[]) {
-    //     entries.forEach(entry => {
-    //         if (entry.isIntersecting) {
-    //             !activeEntries.includes(entry.target.id) && activeEntries.push(entry.target.id)
-    //             activeObj[entry.target.id] = entry
-    //             // const asideID = entry.target.id;
-    //             // const liItem = document.getElementById(`aside-${asideID}`);
-    //             // if (!alreadyAssigned && liItem){
-    //             //     const asideArrow = document.getElementById(`aside-arrow-${entry.target.id}`)
-    //             //     if (asideArrow){
-    //             //         asideArrow.innerHTML = ">";
-    //             //         alreadyAssigned = true
-    //             //     }
-    //             // }
-    //             console.log('######111###')
-    //             console.log(entry.target.id)
-    //         } else {
-    //             // && activeEntries.includes(entry.target.id)
-    //             if ( activeEntries.length > 1 && activeEntries.includes(entry.target.id)){
-    //                 console.log('######222###')
-    //                 console.log(entry.target.id)
-    //                 activeEntries = activeEntries.filter(item => item !== entry.target.id);
-    //             }
-    //             // // const arrowSpan = entry.target.innerHTML = "";
-    //             // const asideArrow = document.getElementById(`aside-arrow-${entry.target.id}`)
-    //             // if (asideArrow){
-    //             //     asideArrow.innerHTML = "";
-    //             // }
-    //         }
-    //         console.log(activeEntries)
-    //     });
-
-    //     // remove any items which are not intersecting
-    //     activeEntries.forEach(entryID => {
-    //         var entry = activeObj[entryID]
-    //         console.log(entryID, entry.isIntersecting)
-    //     });
-    //     // activeObj[entry.target.id] = entry
-
-    //     // let targetEntry = activeEntries[0]
-    //     // console.log(targetEntry)
-
-    //     // const asideID = entry.target.id;
-    //     // const liItem = document.getElementById(`aside-${asideID}`);
-    //     // if (!alreadyAssigned && liItem){
-    //     //     const asideArrow = document.getElementById(`aside-arrow-${entry.target.id}`)
-    //     //     if (asideArrow){
-    //     //         asideArrow.innerHTML = ">";
-    //     //         alreadyAssigned = true
-    //     //     }
-    //     // }
-    // }
-
-    let activeEntries = [];
+    let tracker;
+    let lastScrollPosition = window.scrollY;
 
     function handleIntersection(entries: IntersectionObserverEntry[]) {
+        // find scroll direction
+        const currentScrollPosition = window.scrollY;
+        let scrollDirection
+        // Compare current and previous scroll positions
+        if (currentScrollPosition > lastScrollPosition) {
+            scrollDirection = 'down';
+        } else if (currentScrollPosition < lastScrollPosition) {
+            scrollDirection = 'up';
+        }
+        lastScrollPosition = currentScrollPosition;
+
+        // find intersecting headers
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                if (!activeEntries.includes(entry.target.id)) {
-                    activeEntries.push(entry.target.id);
-                }
+                tracker[entry.target.id].intersecting = true;
             } else {
-                activeEntries = activeEntries.filter(item => item !== entry.target.id);
+                tracker[entry.target.id].intersecting = false;
             }
         })
-        console.log(activeEntries)
+
+        // get the intersecting header ids
+        const intersecting = orderedIDs.filter(item => tracker[item].intersecting)
+
+        // 
+        if (intersecting.length == 1){
+            // if only one intersecting then set that as active
+            orderedIDs.forEach(item => {
+                if (item == intersecting[0]){
+                    tracker[item].active=true
+                } else {
+                    tracker[item].active=false
+                }
+            })
+        } else if ( intersecting.length > 1 ){
+            let setActive=false;
+            orderedIDs.forEach(item => {
+                if (tracker[item].intersecting && !setActive){
+                    tracker[item].active=true
+                    setActive=true
+                } else {
+                    tracker[item].active=false
+                }
+            })
+        } else {
+            if ( scrollDirection === 'up' ){
+                // if no intersects and scrolling up then find the active id and switch it to the one above
+                let activateNext=false;
+                orderedIDs.reverse().forEach(item => {
+                    if (tracker[item].active){
+                        tracker[item].active=false
+                        activateNext=true
+                    } else if (activateNext) {
+                        tracker[item].active=true
+                        activateNext=false
+                    } else {
+                        tracker[item].active=false
+                    }
+                })
+            }
+        }
+
+        // assign or remove the arrow from the aside
+        orderedIDs.forEach(item => {
+            const asideArrow = document.getElementById(`aside-arrow-${item}`)
+            if ( asideArrow ){
+                if (tracker[item].active){
+                    asideArrow.innerHTML = ">";
+                } else {
+                    asideArrow.innerHTML = "";
+                }
+            }
+        })
     }
 
     // Now IntersectionObserver is available, proceed with your code
     const observer = new IntersectionObserver(handleIntersection);
-
     // Get elements to track (replace with your selector)
-    const elementsToTrack = document.querySelectorAll('.track-element');
+    var elementsToTrack = Array.from(document.querySelectorAll('h2, h3')).filter(ele => ele.id);
+    // order of headings
+    const orderedIDs = Array.from(elementsToTrack).map(ele => ele.id);
+    tracker = orderedIDs.reduce((acc, ele) => {
+        acc[ele] = { intersecting: false, active: false };
+        return acc;
+    }, {});
 
     // Observe each element
     elementsToTrack.forEach(element => {
         observer.observe(element);
     });
 
-
-
-    // function isInViewport(element) {
-    //     const rect = element.getBoundingClientRect();
-
-    //     return (
-    //         rect.top >= 0 &&
-    //         rect.left >= 0 &&
-    //         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    //         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    //     );
-    // }
-
-    // const element = document.getElementById('your-element-id');
-    // if (isInViewport(element)) {
-    //     console.log('Element is in the viewport');
-    // } else {
-    //     console.log('Element is not in the viewport');
-    // }
-
 </script>
 
-
-<div class="flex">
-    <div class="w-1/4 pl-12 pt-8 border-r border-gray-300 h-screen sticky top-0">
-        <Aside />
+<Layout>
+    <div class="flex">
+        <div class="w-1/4 pl-12 pt-8 border-r border-gray-300 h-screen sticky top-0">
+            <Aside />
+        </div>
+        <div class="prose prose-2xl pl-12 pt-8 flex-1">
+            <slot />
+        </div>
     </div>
-    <div class="prose prose-2xl pl-12 pt-8 flex-1">
-        <slot />
-    </div>
-</div>
+</Layout>
