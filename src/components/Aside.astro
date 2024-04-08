@@ -3,6 +3,9 @@ import {getCollection} from "astro:content"
 import AsideSection from "./AsideSection.astro"
 
 const sections = await getCollection("sections")
+
+// order by page
+sections.sort((a, b) => a.data.page - b.data.page);
 ---
 
 <ul>
