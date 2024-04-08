@@ -13,8 +13,15 @@ import Layout from "./Layout.astro";
 ---
 
 <script>
+    interface TrackerItem {
+        intersecting: boolean;
+        active: boolean;
+    }
 
-    let tracker;
+    interface Tracker {
+        [key: string]: TrackerItem;
+    }
+
     let lastScrollPosition = window.scrollY;
 
     function handleIntersection(entries: IntersectionObserverEntry[]) {
@@ -39,7 +46,7 @@ import Layout from "./Layout.astro";
         })
 
         // get the intersecting header ids
-        const intersecting = orderedIDs.filter(item => tracker[item].intersecting)
+        const intersecting: string[] = orderedIDs.filter(item => tracker[item].intersecting)
 
         // 
         if (intersecting.length == 1){
@@ -81,7 +88,7 @@ import Layout from "./Layout.astro";
 
         // assign or remove the arrow from the aside
         orderedIDs.forEach(item => {
-            const asideArrow = document.getElementById(`aside-arrow-${item}`)
+            const asideArrow = document.getElementById(`aside-arrow-${mainHeader}-${item}`)
             if ( asideArrow ){
                 if (tracker[item].active){
                     asideArrow.innerHTML = ">";
@@ -92,22 +99,25 @@ import Layout from "./Layout.astro";
         })
     }
 
-    // Now IntersectionObserver is available, proceed with your code
-    const observer = new IntersectionObserver(handleIntersection);
     // Get elements to track (replace with your selector)
-    var elementsToTrack = Array.from(document.querySelectorAll('h2, h3')).filter(ele => ele.id);
+    var elementsToTrack: HTMLHeadingElement[] = Array.from(document.querySelectorAll('h3')).filter(ele => ele.id);
+    // get the main header id. There should be only one h2 on the page
+    const mainHeader: string | null = document.querySelector('h2')?.id ?? null;
     // order of headings
-    const orderedIDs = Array.from(elementsToTrack).map(ele => ele.id);
-    tracker = orderedIDs.reduce((acc, ele) => {
+    const orderedIDs: string[] = Array.from(elementsToTrack).map(ele => ele.id);
+                
+    const tracker: Tracker = orderedIDs.reduce((acc: Tracker, ele: string) => {
         acc[ele] = { intersecting: false, active: false };
         return acc;
     }, {});
+                
+    // Now IntersectionObserver is available, proceed with your code
+    const observer = new IntersectionObserver(handleIntersection);
 
     // Observe each element
     elementsToTrack.forEach(element => {
         observer.observe(element);
     });
-
 </script>
 
 <Layout>
