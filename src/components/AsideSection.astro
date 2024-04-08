@@ -32,7 +32,7 @@ headings.forEach((header: Heading) => {
 });
 ---
 
-<li class="flex flex-col items-center justify-center">
+<li class="flex flex-col mb-3">
     <ul>
         {Object.keys(obj).map(keyHeader => {
             return (
@@ -45,10 +45,10 @@ headings.forEach((header: Heading) => {
                         {obj[keyHeader].children.map(minorHeader => {
                             const id = `${keyHeader}-${minorHeader.slug}`;
                             return (
-                                <li id={`aside-${id}`} class="header-sub-group">
+                                <li id={`aside-${id}`} class="header-sub-group ml-4">
                                     <a href={`/sections/${section.slug}/#${minorHeader.slug}`}>
-                                        <span id={`aside-arrow-${id}`} class="arrow"></span>
-                                        <span class="header">{minorHeader.text}</span>
+                                        <span id={`aside-arrow-${id}`} class="arrow absolute"></span>
+                                        <span class="header ml-4">{minorHeader.text}</span>
                                     </a>
                                 </li>
                             )
