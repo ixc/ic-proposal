@@ -1,0 +1,10 @@
+---
+import {getCollection} from "astro:content"
+import TeamMember from "./TeamMember.astro";
+const team = await getCollection("team")
+
+// order by page
+team.sort((a, b) => a.data.page - b.data.page);
+---
+
+{team.map(teamMember => <TeamMember teamMember={teamMember}/>)}

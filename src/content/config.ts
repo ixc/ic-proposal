@@ -8,7 +8,17 @@ const sectionCollection = defineCollection({
     })
 });
 
+const teamCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    page: z.number(),
+    name: z.string(),
+    image: z.string(),
+  })
+});
+
 
 export const collections = {
     sections: sectionCollection,
+    team: teamCollection,
 }

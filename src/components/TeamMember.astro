@@ -1,0 +1,21 @@
+---
+import {Image} from "astro:assets"
+const {teamMember} = Astro.props
+
+const {Content, headings} = await teamMember.render()
+---
+
+<div class="flex border-b">
+    <div class="w-1/3">
+        <Image
+            src={teamMember.data.image}
+            alt=""
+            width={200}
+            height={300}
+            class=""
+        />
+    </div>
+    <div class="w-2/3">
+        <Content />
+    </div>
+</div>
