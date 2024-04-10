@@ -1,11 +1,11 @@
 ---
 import {getCollection} from "astro:content"
 import Section from "../components/Section.astro"
-import Layout from "../layouts/Layout.astro"
+import LayoutMiddle from "../layouts/LayoutMiddle.astro"
 
 const sections = await getCollection("sections")
 ---
 
-<Layout>
+<LayoutMiddle>
     {sections.map(section => <Section section={section} />)}
-</Layout>
+</LayoutMiddle>

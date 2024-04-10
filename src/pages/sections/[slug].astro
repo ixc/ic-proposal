@@ -1,6 +1,6 @@
 ---
 import {getCollection, getEntryBySlug} from "astro:content"
-import LayoutMiddle from "../../layouts/LayoutMiddle.astro";
+import LayoutSection from "../../layouts/LayoutSection.astro";
 
 // define the slug for each member
 export async function getStaticPaths() {
@@ -24,6 +24,6 @@ if (!section) {
 const {Content, headings} = await section.render()
 ---
 
-<LayoutMiddle>
+<LayoutSection>
     <Content />
-</LayoutMiddle>
+</LayoutSection>
