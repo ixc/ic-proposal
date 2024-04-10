@@ -9,5 +9,8 @@ sections.sort((a, b) => a.data.page - b.data.page);
 ---
 
 <ul>
+    <li class="header-group">
+        <a href="/">Home</a>
+    </li>
     {sections.map(section => <AsideSection section={section}/>)}
 </ul>
