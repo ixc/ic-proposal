@@ -1,10 +1,35 @@
 ---
+import {getCollection, getEntryBySlug} from "astro:content"
 import LayoutMiddle from "./LayoutMiddle.astro";
 
+const { slug } = Astro.params;
+const section = await getEntryBySlug("sections", slug as string)
+const sections = await getCollection("sections")
+// sort the sections by page number
+sections.sort((a, b) => a.data.page - b.data.page);
+// get the current page index
+const currentIndex = sections.findIndex((s) => s.slug === section?.slug);
+// determine if a previous section exists
+let previousSection;
+if (currentIndex > 0){
+    previousSection = sections[currentIndex - 1];
+}
+// determine if a next section exists
+let nextSection;
+if (currentIndex < sections.length - 1){
+    nextSection = sections[currentIndex + 1];
+}
 ---
 
 
 <LayoutMiddle>
-    beer
     <slot />
+    <div class="flex justify-between mt-10">
+        <div class="flex-initial">
+            {previousSection && <a href={previousSection.slug}>Previous</a>}
+        </div>
+        <div class="flex-initial">
+            {nextSection && <a href={nextSection.slug}>Next</a>}
+        </div>
+    </div>    
 </LayoutMiddle>
