@@ -26,10 +26,10 @@ if (currentIndex < sections.length - 1){
     <slot />
     <div class="flex justify-between mt-10">
         <div class="flex-initial">
-            {previousSection && <a href={previousSection.slug}>Previous</a>}
+            {previousSection && <a href={`/sections/${previousSection.slug}`}>Previous</a>}
         </div>
         <div class="flex-initial">
-            {nextSection && <a href={nextSection.slug}>Next</a>}
+            {nextSection && <a href={`/sections/${nextSection.slug}`}>Next</a>}
         </div>
     </div>    
 </LayoutMiddle>
