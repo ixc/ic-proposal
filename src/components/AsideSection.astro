@@ -1,13 +1,27 @@
 ---
 import type {CollectionEntry} from "astro:content"
+import {getCollection} from "astro:content"
 
 type Props = {
-    section: CollectionEntry<"sections">
+    section: CollectionEntry<"sections">,
+    team: CollectionEntry<"team">
 }
 
 const {section} = Astro.props
-const {Content, headings} = await section.render()
+var {headings} = await section.render()
 
+// if 
+if (section.data.relatedCollection) {
+    const related = await getCollection(section.data.relatedCollection);
+    related.sort((a, b) => a.data.page - b.data.page);
+
+    for (const entry of related) {
+        // Await the render function of each entry
+        const { headings: relatedHeadings } = await entry.render();
+        // Process the headings
+        headings = [...headings, ...relatedHeadings]
+    }
+}
 
 // Define interface for headings
 interface Heading {

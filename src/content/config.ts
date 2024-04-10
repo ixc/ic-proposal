@@ -5,6 +5,7 @@ const sectionCollection = defineCollection({
     schema: z.object({
       section: z.string(),
       page: z.number(),
+      relatedCollection: z.string().nullable()
     })
 });
 
