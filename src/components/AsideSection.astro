@@ -9,16 +9,19 @@ type Props = {
 const {section} = Astro.props
 var {headings} = await section.render()
 
-// if 
+// if relatedColleciton exists then add its headings
 if (section.data.relatedCollection) {
-    const related = await getCollection(section.data.relatedCollection);
-    related.sort((a, b) => a.data.page - b.data.page);
+    const relatedCollection: string = section.data.relatedCollection;
+    if (relatedCollection == 'team'){
+        const related = await getCollection('team');
+        related.sort((a, b) => a.data.page - b.data.page);
 
-    for (const entry of related) {
-        // Await the render function of each entry
-        const { headings: relatedHeadings } = await entry.render();
-        // Process the headings
-        headings = [...headings, ...relatedHeadings]
+        for (const entry of related) {
+            // Await the render function of each entry
+            const { headings: relatedHeadings } = await entry.render();
+            // Process the headings
+            headings = [...headings, ...relatedHeadings]
+        }
     }
 }
 

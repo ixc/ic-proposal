@@ -2,7 +2,7 @@
 import {Image} from "astro:assets"
 const {teamMember} = Astro.props
 
-const {Content, headings} = await teamMember.render()
+const {Content} = await teamMember.render()
 ---
 
 <div class="flex border-b">
